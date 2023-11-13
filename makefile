@@ -36,18 +36,18 @@ SRC = $(wildcard ./src/*.c)
 all: clean ./build/$(PROJECT).hex
 
 ./build/$(PROJECT).elf : $(SRC)
-    $(CC) ${C_FLAGS} $(C_INCLUDES) $(SRC) -o ./build/$(PROJECT).elf
+	$(CC) ${C_FLAGS} $(C_INCLUDES) $(SRC) -o ./build/$(PROJECT).elf
 
 ./build/$(PROJECT).hex : ./build/$(PROJECT).elf
-    ${OBJCOPY} -j .text -j .data -O ihex $< $@
+	${OBJCOPY} -j .text -j .data -O ihex $< $@
 
 clean:
-    $(REMOVE) -f ./build/*
+	$(REMOVE) -f ./build/*
 
 test:
-    avrdude -p $(DUDE_MCU) -c $(PROGRAMA) -P $(PORT) -b $(PORTSPEED) -n
+	avrdude -p $(DUDE_MCU) -c $(PROGRAMA) -P $(PORT) -b $(PORTSPEED) -n
 
 prog: ./build/$(PROJECT).hex
-    avrdude -p $(DUDE_MCU) -c $(PROGRAMA) -P $(PORT) -b $(PORTSPEED) -U flash:w:./build/$(PROJECT).hex
+	avrdude -p $(DUDE_MCU) -c $(PROGRAMA) -P $(PORT) -b $(PORTSPEED) -U flash:w:./build/$(PROJECT).hex
 
 	
